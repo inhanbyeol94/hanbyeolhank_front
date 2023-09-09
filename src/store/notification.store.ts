@@ -1,7 +1,5 @@
 import create from 'zustand';
-import { ICreateClientStore } from '../interfaces/store/createClientStore.interface';
 import { INotificationStore } from '../interfaces/store/notificationStore.interface';
-import { notification } from 'antd';
 
 export const useNotificationStore = create<INotificationStore>((set) => ({
   notificationData: {

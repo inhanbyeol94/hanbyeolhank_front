@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
-import {
-  AccountBookOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  MoneyCollectOutlined,
-  SearchOutlined,
-  SwapOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Button, theme, notification } from 'antd';
+import React from 'react';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Button, Layout, notification, Steps, theme } from 'antd';
 import { useSidebarStore } from '../../store/sidebar.store';
 import { Notification } from '../utils/Notification';
+import { useGlobalStore } from '../../store/global.store';
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,6 +13,7 @@ const AntHeader = () => {
   } = theme.useToken();
 
   const { toggle, setToggle } = useSidebarStore();
+  const { status, step } = useGlobalStore();
   const [api, contextHolder] = notification.useNotification();
 
   const handleSidebarToggle = () => {
@@ -43,6 +35,7 @@ const AntHeader = () => {
           }}
         />
       </Header>
+      <Steps current={status} style={{ height: '7vh', padding: '2vh 50px 1vh 50px' }} items={step} />
     </>
   );
 };

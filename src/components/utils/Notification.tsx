@@ -13,7 +13,6 @@ export const Notification = () => {
     if (notificationData.title) {
       openNotification(notificationData.type, notificationData.placement, notificationData.title, notificationData.description);
       resetNotification();
-      console.log(1);
     }
   }, [notificationData]);
   const openNotification = (type: NotificationType, placement: NotificationPlacement, title: string, description: string) => {

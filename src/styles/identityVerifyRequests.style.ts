@@ -5,15 +5,16 @@ const { Header, Sider, Content } = Layout;
 
 export const S = {
   Content: styled(Content)`
-    margin: 2vh;
+    margin: 2vh 2vh 0 2vh;
     min-height: 280px;
-    height: 89vh;
+    height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 10px;
   `,
   Container: styled.div`
-    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,10 +22,11 @@ export const S = {
   `,
   Title: styled.span`
     font-size: 16px;
+    margin-bottom: 15px;
   `,
   Input: styled(Input)`
-    margin-bottom: 12px;
-    margin-top: 12px;
+    //margin-bottom: 12px;
+    //margin-top: 12px;
   `,
   Explanation: styled.span`
     color: #7f8487;

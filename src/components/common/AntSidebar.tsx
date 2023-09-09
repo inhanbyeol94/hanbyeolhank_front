@@ -48,7 +48,7 @@ const AntLayout: React.FC = () => {
           {
             key: 'account',
             icon: <AccountBookOutlined />,
-            label: '예금계좌 생성',
+            label: '예금계좌 개설',
             onClick: () => navigate('/account'),
           },
           {

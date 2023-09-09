@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, Layout, notification, theme } from 'antd';
-import type { NotificationPlacement } from 'antd/es/notification/interface';
-import { AiOutlineLock, AiOutlinePhone, AiOutlineUser } from 'react-icons/ai';
-import { useCreateClientStore } from '../store/createClient.store';
+import React, { useEffect } from 'react';
 import { IdentityVerifyRequestsComponent } from '../components/IdentityVerifyRequests.component';
-import { useIdentityVerifyStore } from '../store/identityVerify.store';
+import { IdentityVerifyComponent } from '../components/IdentityVerify.component';
+import { useGlobalStore } from '../store/global.store';
+import { CreateClientSuccessComponent } from '../components/CreateClientSuccess.component';
+import { CreateClientComponent } from '../components/CreateClient.component';
 
 const CreateClient = () => {
-  const { status, setStatus } = useCreateClientStore();
-  const { setSequence, setPhone } = useIdentityVerifyStore();
+  const { reset, status, setStep, setType } = useGlobalStore();
 
   useEffect(() => {
     /* 메뉴 이동 시 상태값 초기화 */
-    setStatus(0);
-    setSequence('');
-    setPhone('');
+    reset();
+    setStep([{ title: '본인확인 요청' }, { title: '본인확인 인증' }, { title: '고객 등록' }, { title: '등록 완료' }]);
+    setType(100);
   }, []);
 
-  return <>{status == 0 ? <IdentityVerifyRequestsComponent /> : null}</>;
+  switch (status) {
+    case 0:
+      return <IdentityVerifyRequestsComponent />;
+    case 1:
+      return <IdentityVerifyComponent />;
+    case 2:
+      return <CreateClientComponent />;
+    case 4:
+      return <CreateClientSuccessComponent />;
+
+    default:
+      return <></>;
+  }
 };
 
 export default CreateClient;

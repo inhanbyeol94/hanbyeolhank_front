@@ -1,45 +1,68 @@
-import { Button, notification, theme } from 'antd';
+import { Button, Form } from 'antd';
 import React, { useState } from 'react';
-import { NotificationPlacement } from 'antd/es/notification/interface';
 import { BsKey } from 'react-icons/bs';
-import { S } from './identityVerify.style';
-
-type NotificationType = 'success' | 'info' | 'warning' | 'error';
+import { S } from '../styles/identityVerify.style';
+import { useIdentityQueries } from '../queries/identity.query';
+import { useNotificationStore } from '../store/notification.store';
+import { IIdentityVerify } from '../interfaces/api/identityVerify.interface';
+import { IApiResult } from '../interfaces/api/apiResult.interface';
+import { useGlobalStore } from '../store/global.store';
 
 export const IdentityVerifyComponent = () => {
-  // const {
-  //   token: { colorBgContainer },
-  // } = theme.useToken();
+  /* Form */
+  const [form] = Form.useForm<IIdentityVerify>();
 
-  const [api, contextHolder] = notification.useNotification();
-  const [authCode, setAuthCode] = useState('');
-  const [sequence, setSequence] = useState('');
+  /* Query */
+  const { identityVerifyMutation } = useIdentityQueries();
 
-  const openNotification = (type: NotificationType, placement: NotificationPlacement, title: string, description: string) => {
-    api[type]({
-      message: title,
-      description: description,
-      placement,
-    });
+  /* Store */
+  const { showNotification } = useNotificationStore();
+  const { setStatus, sequence, setSequence, phone } = useGlobalStore();
+
+  /* State */
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  /* Function */
+  const identityVerify = (values: { code: string }) => {
+    setIsSubmit(true);
+
+    identityVerifyMutation.mutate(
+      { phone, sequence, code: values.code },
+      {
+        onSuccess: (result: IApiResult) => {
+          setStatus(2);
+          setSequence(result.sequence || '');
+          showNotification('success', 'topRight', '본인확인 인증', result.message);
+        },
+        onError: (error) => {
+          setIsSubmit(false);
+          if (!error.response) return showNotification('error', 'topRight', '실패', '서버가 응답하지 않거나, 잘못된 요청입니다.');
+          return showNotification('error', 'topRight', '실패', error.response.data.message.replace('Bad Request Exception', '잘못된 요청입니다.'));
+        },
+      },
+    );
   };
 
-  const handleAuthCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAuthCode(e.target.value);
+  const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    form.setFieldValue('code', e.target.value.replace(/[^0-9]/g, ''));
+    console.log(form.getFieldsValue());
   };
 
+  /* Component */
   return (
     <>
-      {contextHolder}
       <S.Content>
         <S.Container>
-          <S.Title>인증번호를 입력해주세요.</S.Title>
-          <S.SpaceCompact>
-            <S.Input size="large" placeholder="000000" prefix={<BsKey />} maxLength={6} />
-            <Button type="primary" size={'large'}>
-              인증
-            </Button>
-          </S.SpaceCompact>
-          <S.Explanation>입력하신 휴대폰 번호로 발송된 인증번호를 입력해주세요.</S.Explanation>
+          <Form form={form} initialValues={{ remember: true }} layout="vertical" style={{ width: 300 }} onFinish={identityVerify} autoComplete="off">
+            <Form.Item name="code" label="인증번호" rules={[{ required: true, message: '인증번호를 입력해주세요.' }]}>
+              <S.Input size="large" placeholder="123456" prefix={<BsKey />} maxLength={6} onChange={handleCode} />
+            </Form.Item>
+            <Form.Item style={{ textAlign: 'right' }}>
+              <Button type="primary" size={'large'} htmlType="submit" disabled={isSubmit}>
+                인증
+              </Button>
+            </Form.Item>
+          </Form>
         </S.Container>
       </S.Content>
     </>
