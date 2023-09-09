@@ -3,6 +3,10 @@ import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
+
+  * {
+    font-family: 'Nanum Gothic', sans-serif;
+  }
   
 `;
 

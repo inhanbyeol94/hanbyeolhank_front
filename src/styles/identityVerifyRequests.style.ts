@@ -32,4 +32,7 @@ export const S = {
     color: #7f8487;
     margin: 10px 0px;
   `,
+  BtnBox: styled.div`
+    text-align: right;
+  `,
 };

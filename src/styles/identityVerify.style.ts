@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button, Input, Layout, notification, Space } from 'antd';
-
+import { Input, Layout, Space } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 export const S = {
@@ -23,6 +22,7 @@ export const S = {
     justify-content: center;
     align-items: center;
   `,
+
   Title: styled.span`
     font-size: 16px;
   `,

@@ -13,6 +13,7 @@ import {
 import { Layout, Menu, Button, theme } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSidebarStore } from '../../store/sidebar.store';
+import styled from 'styled-components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -32,7 +33,7 @@ const AntLayout: React.FC = () => {
 
   return (
     <Sider trigger={null} collapsible collapsed={toggle}>
-      <div className="subLogo" />
+      <S.SubLogo />
       <Menu
         style={{ height: '90vh' }}
         theme="dark"
@@ -76,3 +77,13 @@ const AntLayout: React.FC = () => {
 };
 
 export default AntLayout;
+
+const S = {
+  SubLogo: styled.div`
+    height: 10vh;
+    background-image: url('/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 35%;
+  `,
+};
