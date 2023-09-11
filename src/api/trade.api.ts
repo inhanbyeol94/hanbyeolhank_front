@@ -1,17 +1,19 @@
 import { IApiResult } from '../interfaces/api/apiResult.interface';
 import { IDepositWithoutPassbook } from '../interfaces/api/depositWithoutPassbook.interface';
+import axios, { Axios, AxiosResponse } from 'axios';
+import { ITransfer } from '../interfaces/api/transfer.interface';
+import { IBalanceinquiry } from '../interfaces/api/balanceinquiry.interface';
 
-export const depositWithoutPassbook = async (depositWithoutPassbookData: IDepositWithoutPassbook): Promise<IApiResult> => {
-  const api = await fetch(`http://${process.env.REACT_APP_BANK_HOST}/trade/deposit/without/passbook`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(depositWithoutPassbookData),
-  });
+const client: Axios = axios.create({
+  baseURL: `http://${process.env.REACT_APP_BANK_HOST}`,
+});
 
-  const { status } = await api;
-  const result = await api.json();
+export const depositWithoutPassbook = async (apiData: IDepositWithoutPassbook): Promise<IApiResult> => {
+  const res: AxiosResponse<IApiResult> = await client.post('trade/deposit/without/passbook', apiData);
+  return await res.data;
+};
 
-  return { message: result.message, status };
+export const transfer = async (apiData: ITransfer): Promise<IApiResult> => {
+  const res: AxiosResponse<IApiResult> = await client.post('trade/direct/deposit', apiData);
+  return await res.data;
 };

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { IdentityVerifyRequestsComponent } from '../components/IdentityVerifyRequests.component';
 import { IdentityVerifyComponent } from '../components/IdentityVerify.component';
 import { useGlobalStore } from '../store/global.store';
-import { CreateClientSuccessComponent } from '../components/CreateClientSuccess.component';
 import { CreateClientComponent } from '../components/CreateClient.component';
+import { ResultSuccessComponent } from '../components/ResultSuccess.component';
 
 const CreateClient = () => {
   const { reset, status, setStep, setType } = useGlobalStore();
@@ -23,7 +23,7 @@ const CreateClient = () => {
     case 2:
       return <CreateClientComponent />;
     case 4:
-      return <CreateClientSuccessComponent />;
+      return <ResultSuccessComponent />;
 
     default:
       return <></>;

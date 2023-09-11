@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { IdentityVerifyComponent } from '../components/IdentityVerify.component';
 import { useGlobalStore } from '../store/global.store';
 import { IdentityVerifyRequestsComponent } from '../components/IdentityVerifyRequests.component';
-import { CreateAccountSuccessComponent } from '../components/CreateAccountSuccess.component';
+import { ResultSuccessComponent } from '../components/ResultSuccess.component';
 import { CreateAccountComponent } from '../components/CreateAccount.component';
 
 const CreateAccount = () => {
@@ -23,7 +23,7 @@ const CreateAccount = () => {
     case 2:
       return <CreateAccountComponent />;
     case 4:
-      return <CreateAccountSuccessComponent />;
+      return <ResultSuccessComponent />;
 
     default:
       return <></>;

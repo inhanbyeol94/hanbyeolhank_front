@@ -25,5 +25,12 @@ export const useGlobalStore = create<IGlobalStore>((set) => ({
   accountNumber: '',
   setAccountNumber: (accountNumber) => set((state) => ({ accountNumber })),
 
-  reset: () => set(() => ({ name: '', phone: '', residentRegistrationNumber: '', sequence: '', type: 0, status: 0, step: [] })),
+  successTitle: '',
+  setSuccessTitle: (successTitle) => set((state) => ({ successTitle })),
+
+  successSubtitle: '',
+  setSuccessSubtitle: (successSubtitle) => set((state) => ({ successSubtitle })),
+
+  reset: () =>
+    set(() => ({ name: '', phone: '', residentRegistrationNumber: '', sequence: '', type: 0, status: 0, step: [], accountNumber: '', successSubtitle: '', successTitle: '' })),
 }));

@@ -43,9 +43,9 @@ export const IdentityVerifyComponent = () => {
     );
   };
 
+  /* Handler Function */
   const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue('code', e.target.value.replace(/[^0-9]/g, ''));
-    console.log(form.getFieldsValue());
   };
 
   /* Component */

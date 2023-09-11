@@ -16,7 +16,7 @@ export const CreateClientComponent = () => {
 
   /* Store */
   const { showNotification } = useNotificationStore();
-  const { setStatus, sequence, name, phone, residentRegistrationNumber, setStep } = useGlobalStore();
+  const { setStatus, sequence, name, phone, residentRegistrationNumber, setSuccessTitle, setSuccessSubtitle } = useGlobalStore();
 
   /* State */
   const [isSubmit, setIsSubmit] = useState(false);
@@ -28,12 +28,15 @@ export const CreateClientComponent = () => {
     create.mutate(
       { name, phone, residentRegistrationNumber, sequence },
       {
-        onSuccess: (result: IApiResult) => {
-          if (result.status !== 201) {
-            setIsSubmit(false);
-            return showNotification('error', 'topRight', '고객 등록', result.message);
-          }
+        onSuccess: (result) => {
+          setSuccessTitle(result.message);
+          setSuccessSubtitle('등록이 완료된 고객님의 정보로 예금계좌를 생성할 수 있습니다.');
           setStatus(4);
+        },
+        onError: (error) => {
+          setIsSubmit(false);
+          if (!error.response) return showNotification('error', 'topRight', '실패', '서버가 응답하지 않거나, 잘못된 요청입니다.');
+          return showNotification('error', 'topRight', '실패', error.response.data.message.replace('Bad Request Exception', '잘못된 요청입니다.'));
         },
       },
     );

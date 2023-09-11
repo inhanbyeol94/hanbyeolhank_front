@@ -23,5 +23,11 @@ export interface IGlobalStore {
   accountNumber: string;
   setAccountNumber: (accountNumber: string) => void;
 
+  successSubtitle: string;
+  setSuccessSubtitle: (successSubtitle: string) => void;
+
+  successTitle: string;
+  setSuccessTitle: (successTitle: string) => void;
+
   reset: () => void;
 }

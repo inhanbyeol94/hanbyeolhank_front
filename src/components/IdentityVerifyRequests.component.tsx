@@ -49,6 +49,7 @@ export const IdentityVerifyRequestsComponent = () => {
     );
   };
 
+  /* Handler Function */
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue('name', e.target.value.replace(' ', ''));
   };

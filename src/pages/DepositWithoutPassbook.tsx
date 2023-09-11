@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react';
 import { useGlobalStore } from '../store/global.store';
 import { DepositWithoutPassbookComponent } from '../components/DepositWithoutPassbook.component';
-import { DepositWithoutPassbookSuccessComponent } from '../components/DepositWithoutPassbookSuccess.component';
-import { IdentityVerifyRequestsComponent } from '../components/IdentityVerifyRequests.component';
-import { IdentityVerifyComponent } from '../components/IdentityVerify.component';
-import { CreateClientComponent } from '../components/CreateClient.component';
-import { CreateClientSuccessComponent } from '../components/CreateClientSuccess.component';
+import { ResultSuccessComponent } from '../components/ResultSuccess.component';
 
 const DespositWithoutPassbook = () => {
   const { reset, status, setStep } = useGlobalStore();
@@ -20,7 +16,7 @@ const DespositWithoutPassbook = () => {
     case 0:
       return <DepositWithoutPassbookComponent />;
     case 2:
-      return <DepositWithoutPassbookSuccessComponent />;
+      return <ResultSuccessComponent />;
 
     default:
       return <></>;

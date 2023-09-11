@@ -1,17 +1,11 @@
 import { IApiResult } from '../interfaces/api/apiResult.interface';
 import { ICreateClientData } from '../interfaces/api/createClient.interface';
+import axios, { Axios, AxiosResponse } from 'axios';
 
-export const createClient = async (client: ICreateClientData): Promise<IApiResult> => {
-  const api = await fetch(`http://${process.env.REACT_APP_BANK_HOST}/client`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(client),
-  });
-
-  const { status } = await api;
-  const { message } = await api.json();
-
-  return { message, status };
+const client: Axios = axios.create({
+  baseURL: `http://${process.env.REACT_APP_BANK_HOST}`,
+});
+export const createClient = async (apiData: ICreateClientData): Promise<IApiResult> => {
+  const res: AxiosResponse<IApiResult> = await client.post('client', apiData);
+  return await res.data;
 };

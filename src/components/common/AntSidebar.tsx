@@ -14,6 +14,7 @@ import { Layout, Menu, Button, theme } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSidebarStore } from '../../store/sidebar.store';
 import styled from 'styled-components';
+import { AiOutlineMoneyCollect, AiOutlinePartition } from 'react-icons/ai';
 
 const { Header, Sider, Content } = Layout;
 
@@ -67,9 +68,21 @@ const AntLayout: React.FC = () => {
           {
             key: 'balanceinquiry',
             icon: <SearchOutlined />,
-            label: '잔액 조회',
+            label: '거래내역 조회',
             onClick: () => navigate('/balanceinquiry'),
           },
+          // {
+          //   key: 'withdrawals',
+          //   icon: <AiOutlineMoneyCollect />,
+          //   label: '출금',
+          //   onClick: () => navigate('/withdrawals'),
+          // },
+          // {
+          //   key: 'createkey',
+          //   icon: <AiOutlinePartition />,
+          //   label: '액세스키 발급',
+          //   onClick: () => navigate('/createkey'),
+          // },
         ]}
       />
     </Sider>
