@@ -5,7 +5,7 @@ import { IIdentityVerify } from '../interfaces/api/identityVerify.interface';
 import axios, { Axios, AxiosResponse } from 'axios';
 
 const client: Axios = axios.create({
-  baseURL: `http://${process.env.REACT_APP_BANK_HOST}`,
+  baseURL: process.env.REACT_APP_BANK_HOST,
 });
 export const identityVerifyReqeust = async (apiData: IIdentityVerifyReqeust): Promise<IApiResult> => {
   const res: AxiosResponse<IApiResult> = await client.post('identity', apiData);

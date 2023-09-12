@@ -6,7 +6,7 @@ import { IBalanceinquiry } from '../interfaces/api/balanceinquiry.interface';
 import { ITrade } from '../interfaces/api/trade.interface';
 
 const client: Axios = axios.create({
-  baseURL: `http://${process.env.REACT_APP_BANK_HOST}`,
+  baseURL: process.env.REACT_APP_BANK_HOST,
 });
 
 export const findAccountType = async (): Promise<IAccountType[]> => {

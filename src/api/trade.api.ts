@@ -5,7 +5,7 @@ import { ITransfer } from '../interfaces/api/transfer.interface';
 import { IBalanceinquiry } from '../interfaces/api/balanceinquiry.interface';
 
 const client: Axios = axios.create({
-  baseURL: `http://${process.env.REACT_APP_BANK_HOST}`,
+  baseURL: process.env.REACT_APP_BANK_HOST,
 });
 
 export const depositWithoutPassbook = async (apiData: IDepositWithoutPassbook): Promise<IApiResult> => {
